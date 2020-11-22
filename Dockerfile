@@ -1,6 +1,8 @@
-FROM node:12
+ARG NODE_VERSION=12
+FROM node:${NODE_VERSION}
 
-WORKDIR /app
+ENV WORKING_DIR=/app
+WORKDIR ${WORKING_DIR}
 
 COPY ["package.json", "package-lock.json", "./"]
 
@@ -15,4 +17,6 @@ RUN npm run build
 ENV PORT=3000
 EXPOSE $PORT
 
-CMD npm start -- -p $PORT
+ENV MODE="prod"
+
+CMD npm run start:${MODE} -- -p $PORT

@@ -3,11 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "build": "ts-node build.ts && tsc --build tsconfig.prod.json",
+    "docker": "run-s docker:build docker:run",
+    "docker:dev": "run-s docker:build docker:run:dev",
+    "docker:build": "docker build -t presentation-scheduling .",
+    "docker:run": "docker run -p 3000:3000 presentation-scheduling",
+    "docker:run:dev": "docker run --env MODE=dev -it -p 3000:3000 -v $PWD:/app presentation-scheduling",
     "lint": "eslint . --ext .ts",
-    "start": "node -r module-alias/register ./dist --env=production",
-    "start:dev": "run-p start:dev:*",
-    "start:dev:server": "nodemon",
-    "start:mq": "docker run -d --hostname mq --name mq -p 5672:5672 rabbitmq:3",
+    "start:prod": "node -r module-alias/register ./dist --env=production",
+    "start:dev": "nodemon",
     "test": "nodemon --config ./spec/nodemon.json"
   },
   "nodemonConfig": {

@@ -12,3 +12,5 @@ services:
       args:
         PORT: "8001"
     container_name: presentation-scheduling
+    expose:
+      - "8001"
